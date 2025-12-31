@@ -1,0 +1,442 @@
+/* ==========================================================================
+   Global Animation System - Premium Motion Design
+   GPU-friendly animations using transform and opacity only
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Variables & Configuration - Premium Framer Motion Style
+   ========================================================================== */
+:root {
+	/* Premium easing curves - Framer Motion inspired */
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+	--ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--ease-in-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+	--ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+	
+	/* Default ease (premium) */
+	--animation-ease: var(--ease-out-expo);
+	
+	/* Duration presets */
+	--animation-duration-fast: 0.35s;
+	--animation-duration-normal: 0.5s;
+	--animation-duration-slow: 0.7s;
+	--animation-duration-slower: 1s;
+	
+	/* Stagger timing */
+	--animation-stagger: 0.08s;
+	
+	/* Movement distances */
+	--translate-distance: 40px;
+	--translate-distance-small: 20px;
+	--scale-amount: 0.92;
+	--scale-amount-small: 0.98;
+	
+	/* Blur effects */
+	--blur-amount: 10px;
+}
+
+/* ==========================================================================
+   Base Animation Classes - Page Load & Entrance
+   ========================================================================== */
+
+/* Initial hidden state for elements that should animate in */
+.animate-on-load,
+.reveal,
+.stagger-item {
+	opacity: 0;
+}
+
+/* Page load entrance animation - Premium Framer Motion style */
+.animate-on-load {
+	animation: fadeInUpPremium var(--animation-duration-normal) var(--ease-out-expo) forwards;
+}
+
+@keyframes fadeInUpPremium {
+	from {
+		opacity: 0;
+		transform: translateY(calc(var(--translate-distance) * 1.2)) scale(var(--scale-amount-small));
+		filter: blur(var(--blur-amount));
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		filter: blur(0);
+	}
+}
+
+@keyframes fadeInScale {
+	from {
+		opacity: 0;
+		transform: scale(0.85);
+		filter: blur(8px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0);
+	}
+}
+
+@keyframes slideInFromBottom {
+	from {
+		opacity: 0;
+		transform: translateY(60px) scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+/* ==========================================================================
+   Scroll Reveal Animations - Intersection Observer Triggered
+   ========================================================================== */
+
+/* Reveal on scroll - Premium Framer Motion style with blur and scale */
+.reveal {
+	transition: opacity var(--animation-duration-normal) var(--ease-out-expo),
+				transform var(--animation-duration-normal) var(--ease-out-expo),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+	transform: translateY(var(--translate-distance)) scale(var(--scale-amount-small));
+	filter: blur(8px);
+}
+
+.reveal.revealed {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	filter: blur(0);
+}
+
+/* Reveal from left - Premium with blur */
+.reveal-left {
+	opacity: 0;
+	transform: translateX(calc(-1 * var(--translate-distance))) scale(var(--scale-amount-small));
+	filter: blur(8px);
+	transition: opacity var(--animation-duration-normal) var(--ease-out-expo),
+				transform var(--animation-duration-normal) var(--ease-out-expo),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+}
+
+.reveal-left.revealed {
+	opacity: 1;
+	transform: translateX(0) scale(1);
+	filter: blur(0);
+}
+
+/* Reveal from right - Premium with blur */
+.reveal-right {
+	opacity: 0;
+	transform: translateX(var(--translate-distance)) scale(var(--scale-amount-small));
+	filter: blur(8px);
+	transition: opacity var(--animation-duration-normal) var(--ease-out-expo),
+				transform var(--animation-duration-normal) var(--ease-out-expo),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+}
+
+.reveal-right.revealed {
+	opacity: 1;
+	transform: translateX(0) scale(1);
+	filter: blur(0);
+}
+
+/* Reveal with scale - Premium spring-like */
+.reveal-scale {
+	opacity: 0;
+	transform: scale(var(--scale-amount));
+	filter: blur(10px);
+	transition: opacity var(--animation-duration-normal) var(--ease-out-back),
+				transform var(--animation-duration-normal) var(--ease-out-back),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+}
+
+.reveal-scale.revealed {
+	opacity: 1;
+	transform: scale(1);
+	filter: blur(0);
+}
+
+/* Reveal fade only (subtle premium) */
+.reveal-fade {
+	opacity: 0;
+	filter: blur(4px);
+	transition: opacity var(--animation-duration-slow) var(--ease-out-expo),
+				filter var(--animation-duration-slow) var(--ease-out-expo);
+}
+
+.reveal-fade.revealed {
+	opacity: 1;
+	filter: blur(0);
+}
+
+/* ==========================================================================
+   Staggered Text Animations - For Headings and Lists
+   ========================================================================== */
+
+/* Stagger container */
+.stagger {
+	opacity: 1;
+}
+
+/* Stagger items - Premium Framer Motion style */
+.stagger-item {
+	transition: opacity var(--animation-duration-normal) var(--ease-out-expo),
+				transform var(--animation-duration-normal) var(--ease-out-expo),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+	transform: translateY(30px) scale(0.96);
+	filter: blur(6px);
+}
+
+.stagger-item.revealed {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	filter: blur(0);
+}
+
+/* Stagger delay utility classes */
+.stagger-delay-1 { transition-delay: calc(var(--animation-stagger) * 1); }
+.stagger-delay-2 { transition-delay: calc(var(--animation-stagger) * 2); }
+.stagger-delay-3 { transition-delay: calc(var(--animation-stagger) * 3); }
+.stagger-delay-4 { transition-delay: calc(var(--animation-stagger) * 4); }
+.stagger-delay-5 { transition-delay: calc(var(--animation-stagger) * 5); }
+
+/* ==========================================================================
+   Section Reveal Animations
+   ========================================================================== */
+
+/* Apply to sections for automatic reveal - Premium */
+.section {
+	opacity: 0;
+	transform: translateY(50px) scale(0.98);
+	filter: blur(6px);
+	transition: opacity var(--animation-duration-slow) var(--ease-out-expo),
+				transform var(--animation-duration-slow) var(--ease-out-expo),
+				filter var(--animation-duration-slow) var(--ease-out-expo);
+}
+
+.section.revealed {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	filter: blur(0);
+}
+
+/* ==========================================================================
+   Micro-interactions - Hover Effects
+   ========================================================================== */
+
+/* Button hover micro-interaction - Premium Framer Motion style */
+.custom-btn,
+button,
+.btn {
+	transition: transform var(--animation-duration-fast) var(--ease-out-back),
+				box-shadow var(--animation-duration-fast) var(--ease-out-expo),
+				background-color var(--animation-duration-fast) var(--ease-out-expo),
+				color var(--animation-duration-fast) var(--ease-out-expo),
+				filter var(--animation-duration-fast) var(--ease-out-expo);
+	will-change: transform;
+	position: relative;
+}
+
+.custom-btn:hover,
+button:hover,
+.btn:hover {
+	transform: translateY(-4px) scale(1.02);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+	filter: brightness(1.05);
+}
+
+.custom-btn:active,
+button:active,
+.btn:active {
+	transform: translateY(-1px) scale(0.98);
+	transition-duration: 0.08s;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Card hover micro-interaction - Premium with scale and shadow */
+.gallery__item,
+.feature__item,
+.timeline__item,
+.feedback__item,
+.card,
+[class*="item"] {
+	transition: transform var(--animation-duration-normal) var(--ease-out-back),
+				box-shadow var(--animation-duration-normal) var(--ease-out-expo),
+				opacity var(--animation-duration-fast) var(--ease-out-expo);
+	will-change: transform;
+}
+
+.gallery__item:hover,
+.feature__item:hover,
+.timeline__item:hover,
+.feedback__item:hover,
+.card:hover {
+	transform: translateY(-8px) scale(1.02);
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.gallery__item:active,
+.feature__item:active,
+.timeline__item:active,
+.feedback__item:active,
+.card:active {
+	transform: translateY(-3px) scale(0.99);
+	transition-duration: 0.1s;
+}
+
+/* Link hover micro-interaction - Premium */
+a:not(.custom-btn):not(.btn) {
+	transition: color var(--animation-duration-fast) var(--ease-out-expo),
+				opacity var(--animation-duration-fast) var(--ease-out-expo),
+				transform var(--animation-duration-fast) var(--ease-out-back);
+	position: relative;
+	display: inline-block;
+}
+
+a:not(.custom-btn):not(.btn):hover {
+	opacity: 0.85;
+	transform: translateY(-1px);
+}
+
+/* Image hover micro-interaction - Premium smooth zoom */
+img {
+	transition: transform var(--animation-duration-slow) var(--ease-out-expo),
+				opacity var(--animation-duration-fast) var(--ease-out-expo),
+				filter var(--animation-duration-normal) var(--ease-out-expo);
+}
+
+.gallery__item:hover img,
+.feature__item:hover img,
+.card:hover img {
+	transform: scale(1.08);
+	filter: brightness(1.1) contrast(1.05);
+}
+
+/* Input focus micro-interaction - Premium */
+input[type="text"],
+input[type="email"],
+textarea,
+select,
+.textfield {
+	transition: border-color var(--animation-duration-fast) var(--ease-out-expo),
+				box-shadow var(--animation-duration-fast) var(--ease-out-expo),
+				transform var(--animation-duration-fast) var(--ease-out-back),
+				background-color var(--animation-duration-fast) var(--ease-out-expo);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus,
+.textfield:focus {
+	transform: translateY(-2px) scale(1.01);
+	box-shadow: 0 8px 20px rgba(74, 139, 113, 0.15);
+}
+
+/* ==========================================================================
+   Scroll Progress Indicator (Optional)
+   ========================================================================== */
+
+#scroll-progress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 3px;
+	background: linear-gradient(90deg, #4A8B71, #f1cf69);
+	z-index: 9999;
+	transition: width 0.1s ease-out;
+	box-shadow: 0 2px 4px rgba(74, 139, 113, 0.3);
+}
+
+/* ==========================================================================
+   Page Transition Overlay (Optional)
+   ========================================================================== */
+
+#page-transition {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #4A8B71;
+	z-index: 99999;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--animation-duration-normal) var(--animation-ease);
+}
+
+#page-transition.active {
+	opacity: 1;
+	pointer-events: all;
+}
+
+/* ==========================================================================
+   Performance Optimizations
+   ========================================================================== */
+
+/* GPU acceleration - Enhanced */
+.reveal,
+.stagger-item,
+.section,
+.custom-btn,
+.gallery__item,
+.feature__item,
+.timeline__item,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-fade {
+	backface-visibility: hidden;
+	perspective: 1000px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transform-style: preserve-3d;
+}
+
+/* Smooth scroll behavior */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Premium parallax effect for sections */
+.parallax-section {
+	transform: translateZ(0);
+	will-change: transform;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+	
+	.reveal,
+	.stagger-item,
+	.section {
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Delay utilities */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+
+/* Duration utilities */
+.duration-fast { transition-duration: var(--animation-duration-fast); }
+.duration-normal { transition-duration: var(--animation-duration-normal); }
+.duration-slow { transition-duration: var(--animation-duration-slow); }
+

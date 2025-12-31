@@ -1,0 +1,20 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Unwanted HTML redirect files (already handled in HTML, but ignore these)
+favicon.html
+apple-touch-icon.html
+apple-touch-icon-72x72.html
+apple-touch-icon-114x114.html
+02.html
+owl.video.play.html
+

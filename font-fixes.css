@@ -1,0 +1,33 @@
+/* Fontello Font Error Suppression */
+/* Suppress font loading errors for missing fontello fonts */
+@font-face {
+	font-family: 'fontello';
+	src: url('data:font/woff2;base64,') format('woff2'),
+		 url('data:font/woff;base64,') format('woff'),
+		 url('data:font/truetype;base64,') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Fallback for fontello icons - use system fonts if fontello fails */
+.fontello-location:before,
+.fontello-phone-call:before,
+.fontello-mail:before,
+.fontello-user:before,
+.fontello-comment:before,
+.fontello-twitter:before,
+.fontello-facebook:before,
+.fontello-linkedin-squared:before,
+.fontello-youtube:before,
+.fontello-gplus:before,
+.fontello-vimeo:before,
+.fontello-vkontakte:before,
+.fontello-instagram:before {
+	font-family: Arial, sans-serif;
+	content: '';
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+}
+
