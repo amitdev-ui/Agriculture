@@ -12,7 +12,7 @@
 				<!-- Logo on left -->
 				<div class="navbar-logo">
 					<a href="index.html" class="logo-link">
-						<img src="img/logo_1.png" alt="Agricom Logo" class="logo-img" onerror="if(typeof handleLogoError === 'function') { handleLogoError(this); } else { this.style.display='none'; this.nextElementSibling.style.display='block'; }">
+						<img src="img/logo_2.png" alt="Agricom Logo" class="logo-img" style="display: block !important; height: 40px !important; width: auto !important; opacity: 1 !important; visibility: visible !important; min-width: 80px !important; max-width: 200px !important;" onerror="if(typeof window.handleLogoError === 'function') { window.handleLogoError(this); } else { this.style.display='none'; var fallback = this.nextElementSibling; if(fallback) { fallback.style.display='block'; fallback.style.visibility='visible'; } }">
 						<span class="logo-text-fallback" style="display:none; font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; color: #4A8B71; line-height: 40px;">AGRICOM</span>
 					</a>
 				</div>
