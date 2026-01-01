@@ -9,13 +9,13 @@ window.handleLogoError = function(img) {
 	
 	var currentSrc = img.src || img.getAttribute('src') || '';
 	
-	if (currentSrc.indexOf('logo_2.png') !== -1) {
-		img.src = 'img/logo_3.png';
+	if (currentSrc.indexOf('logo_1.png') !== -1) {
+		img.src = 'img/logo_2.png';
 		img.onerror = function() {
 			window.handleLogoError(this);
 		};
-	} else if (currentSrc.indexOf('logo_3.png') !== -1) {
-		img.src = 'img/logo_1.png';
+	} else if (currentSrc.indexOf('logo_2.png') !== -1) {
+		img.src = 'img/logo_3.png';
 		img.onerror = function() {
 			window.handleLogoError(this);
 		};

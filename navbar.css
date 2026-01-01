@@ -13,30 +13,6 @@
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Ensure navbar logo container is always visible */
-.main-navbar .navbar-logo {
-	display: flex !important;
-	visibility: visible !important;
-	opacity: 1 !important;
-	width: auto !important;
-	min-width: 100px !important;
-}
-
-/* Force logo image to always be visible - highest priority */
-.main-navbar .navbar-logo img,
-.main-navbar .logo-img,
-.main-navbar .navbar-logo .logo-img {
-	display: block !important;
-	opacity: 1 !important;
-	visibility: visible !important;
-	height: 40px !important;
-	width: auto !important;
-	min-width: 80px !important;
-	max-width: 200px !important;
-	position: relative !important;
-	z-index: 1 !important;
-}
-
 /* Ensure navbar is always visible above header */
 #start-screen {
 	position: relative;
@@ -55,34 +31,27 @@
 /* Logo Styles */
 .navbar-logo {
 	flex-shrink: 0;
-	display: flex !important;
+	display: flex;
 	align-items: center;
-	min-height: 40px;
-	width: auto;
 }
 
 .navbar-logo a,
 .navbar-logo .logo-link {
-	display: flex !important;
-	align-items: center;
+	display: inline-block;
 	text-decoration: none;
-	line-height: 1;
-	height: 40px;
-	min-width: 100px;
+	line-height: 0;
 }
 
 .logo-link {
-	display: flex !important;
+	display: flex;
 	align-items: center;
-	justify-content: flex-start;
 }
 
 .logo-img {
-	height: 40px !important;
-	width: auto !important;
+	height: 40px;
+	width: auto;
 	display: block !important;
 	max-width: 200px;
-	min-width: 80px;
 	object-fit: contain;
 	opacity: 1 !important;
 	visibility: visible !important;
@@ -90,25 +59,26 @@
 	z-index: 1;
 }
 
-.navbar-logo img,
-.navbar-logo .logo-img {
+.navbar-logo img {
 	opacity: 1 !important;
 	visibility: visible !important;
 	display: block !important;
 	height: 40px !important;
 	width: auto !important;
-	min-width: 80px;
-	max-width: 200px;
 }
 
-/* Logo text fallback */
-.logo-text-fallback {
-	font-family: 'Poppins', sans-serif !important;
-	font-size: 24px !important;
-	font-weight: 700 !important;
-	color: #4A8B71 !important;
-	line-height: 40px !important;
-	display: none;
+.navbar-logo {
+	display: flex !important;
+	align-items: center;
+	min-height: 40px;
+}
+
+.navbar-logo a,
+.navbar-logo .logo-link {
+	display: inline-block !important;
+	text-decoration: none;
+	line-height: 0;
+	height: 40px;
 }
 
 /* Menu Styles */
@@ -428,24 +398,8 @@
 		display: block;
 	}
 	
-	.logo-img,
-	.navbar-logo img,
-	.navbar-logo .logo-img {
-		height: 35px !important;
-		min-width: 60px !important;
-		display: block !important;
-		opacity: 1 !important;
-		visibility: visible !important;
-	}
-	
-	.navbar-logo {
-		min-height: 35px;
-	}
-	
-	.navbar-logo a,
-	.navbar-logo .logo-link {
+	.logo-img {
 		height: 35px;
-		min-width: 80px;
 	}
 }
 
