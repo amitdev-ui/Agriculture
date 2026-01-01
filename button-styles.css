@@ -1,0 +1,85 @@
+/* ============================================
+   Button Styles - SHOW MORE POSTS Design
+   ============================================ */
+
+/* Base button styles matching SHOW MORE POSTS design */
+.custom-btn {
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+}
+
+/* Primary button style - White background, golden border */
+.custom-btn.primary,
+.custom-btn.big.primary,
+#blog-more-btn,
+#gallery-more-btn,
+.show-more-btn {
+	background-color: #fff;
+	color: #4A4A4A;
+	border: 1px solid #E8C872;
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	padding: 12px 28px;
+	font-size: 13px;
+}
+
+.custom-btn.big,
+.custom-btn.big.primary {
+	padding: 14px 32px;
+	font-size: 14px;
+}
+
+/* Hover state */
+.custom-btn.primary:hover,
+.custom-btn.big.primary:hover,
+#blog-more-btn:hover,
+#gallery-more-btn:hover,
+.show-more-btn:hover {
+	background-color: #fff;
+	color: #4A4A4A;
+	border-color: #E8C872;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+	transform: translateY(-2px);
+}
+
+/* Active state */
+.custom-btn.primary:active,
+.custom-btn.big.primary:active,
+#blog-more-btn:active,
+#gallery-more-btn:active,
+.show-more-btn:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Long button variant */
+.custom-btn.long {
+	width: 100%;
+	text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+	.custom-btn.primary,
+	.custom-btn.big.primary,
+	#blog-more-btn,
+	#gallery-more-btn,
+	.show-more-btn {
+		padding: 10px 24px;
+		font-size: 12px;
+	}
+	
+	.custom-btn.big,
+	.custom-btn.big.primary {
+		padding: 12px 28px;
+		font-size: 13px;
+	}
+}
+

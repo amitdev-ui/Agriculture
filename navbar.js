@@ -3,40 +3,70 @@
  * Handles mobile menu toggle and logo error handling
  */
 
-// Logo Error Handler
-function handleLogoError(img) {
-	if (img.src.indexOf('logo_1.png') !== -1) {
-		img.src = 'img/logo_2.png';
-	} else if (img.src.indexOf('logo_2.png') !== -1) {
+// Logo Error Handler - Make it globally accessible
+window.handleLogoError = function(img) {
+	if (!img) return;
+	
+	var currentSrc = img.src || img.getAttribute('src') || '';
+	
+	if (currentSrc.indexOf('logo_2.png') !== -1) {
 		img.src = 'img/logo_3.png';
+		img.onerror = function() {
+			window.handleLogoError(this);
+		};
+	} else if (currentSrc.indexOf('logo_3.png') !== -1) {
+		img.src = 'img/logo_1.png';
+		img.onerror = function() {
+			window.handleLogoError(this);
+		};
 	} else {
-		// If all logos fail, show text
+		// If all logos fail, show text fallback
 		var logoLink = img.parentElement;
-		logoLink.innerHTML = '<span style="font-family: \'Poppins\', sans-serif; font-size: 24px; font-weight: 700; color: #4A8B71;">AGRICOM</span>';
+		var fallback = logoLink.querySelector('.logo-text-fallback');
+		if (fallback) {
+			img.style.display = 'none';
+			fallback.style.display = 'block';
+		} else {
+			logoLink.innerHTML = '<span style="font-family: \'Poppins\', sans-serif; font-size: 24px; font-weight: 700; color: #4A8B71; line-height: 40px;">AGRICOM</span>';
+		}
 	}
-}
+};
+
+// Also make it available as handleLogoError for backward compatibility
+var handleLogoError = window.handleLogoError;
 
 // Mobile Menu Toggle Script
 (function() {
-	function initMobileMenu() {
+	// Make initMobileMenu globally accessible
+	window.initMobileMenu = function() {
 		var menuToggle = document.querySelector('.mobile-menu-toggle');
 		var menuClose = document.querySelector('.mobile-menu-close');
 		var mobileMenu = document.querySelector('.mobile-menu');
 		var mobileOverlay = document.querySelector('.mobile-menu-overlay');
 		var body = document.body;
+		
+		// Check if already initialized
+		if (menuToggle && menuToggle.hasAttribute('data-initialized')) {
+			return;
+		}
+		
+		if (menuToggle) {
+			menuToggle.setAttribute('data-initialized', 'true');
+		}
+		
 		var mobileLinks = document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta-btn');
 		
 		function toggleMenu() {
-			menuToggle.classList.toggle('active');
-			mobileMenu.classList.toggle('active');
-			mobileOverlay.classList.toggle('active');
+			if (menuToggle) menuToggle.classList.toggle('active');
+			if (mobileMenu) mobileMenu.classList.toggle('active');
+			if (mobileOverlay) mobileOverlay.classList.toggle('active');
 			body.classList.toggle('menu-open');
 		}
 		
 		function closeMenu() {
-			menuToggle.classList.remove('active');
-			mobileMenu.classList.remove('active');
-			mobileOverlay.classList.remove('active');
+			if (menuToggle) menuToggle.classList.remove('active');
+			if (mobileMenu) mobileMenu.classList.remove('active');
+			if (mobileOverlay) mobileOverlay.classList.remove('active');
 			body.classList.remove('menu-open');
 		}
 		
@@ -72,13 +102,28 @@ function handleLogoError(img) {
 				closeMenu();
 			}
 		});
+	};
+	
+	// Try to initialize when DOM is ready (for pages where navbar is already in HTML)
+	function tryInitOnReady() {
+		if (document.querySelector('.mobile-menu-toggle')) {
+			window.initMobileMenu();
+		} else {
+			// If navbar not found, wait a bit and try again (for dynamically loaded navbars)
+			setTimeout(function() {
+				if (document.querySelector('.mobile-menu-toggle')) {
+					window.initMobileMenu();
+				}
+			}, 300);
+		}
 	}
 	
-	// Initialize when DOM is ready
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initMobileMenu);
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(tryInitOnReady, 100);
+		});
 	} else {
-		initMobileMenu();
+		setTimeout(tryInitOnReady, 100);
 	}
 })();
 

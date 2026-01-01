@@ -15,7 +15,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="#4A8B71" />
 
 		<!-- Favicons ================================================== -->
-		<link rel="shortcut icon" href="img/favicon.ico">
+		<!-- Favicon removed - file not found -->
 
 		<!-- CSS
 		================================================== -->
@@ -24,6 +24,7 @@
 		<link rel="stylesheet" href="font-fixes.css" type="text/css">
 		<link rel="stylesheet" href="responsive.css" type="text/css">
 		<link rel="stylesheet" href="navbar.css" type="text/css">
+		<link rel="stylesheet" href="button-styles.css" type="text/css">
 
 		<!-- Load google font
 		================================================== -->
@@ -71,15 +72,7 @@
 				text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 			}
 			
-			/* Enhanced button styles with existing colors */
-			.custom-btn.primary {
-				transition: all 0.3s ease;
-				box-shadow: 0 2px 8px rgba(241, 207, 105, 0.3);
-			}
-			.custom-btn.primary:hover {
-				box-shadow: 0 4px 12px rgba(241, 207, 105, 0.5);
-				transform: translateY(-2px);
-			}
+			/* Button styles moved to button-styles.css - reusable component */
 			
 			/* Ensure text readability on light backgrounds */
 			.section--background-base-light .title,
@@ -1688,6 +1681,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="jquery-2.2.4.min.js"><\/script>')</script>
 
+		<script type="text/javascript" src="error-handler.js"></script>
 		<script type="text/javascript" src="main.min.js"></script>
 		<script type="text/javascript" src="animations.js"></script>
 		<script type="text/javascript" src="navbar.js"></script>
