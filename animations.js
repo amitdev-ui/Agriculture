@@ -70,6 +70,12 @@
 		revealElements.forEach(function(element) {
 			observer.observe(element);
 		});
+		
+		// Also observe individual stagger-items that are not in a stagger container
+		const standaloneStaggerItems = document.querySelectorAll('.stagger-item:not(.stagger .stagger-item)');
+		standaloneStaggerItems.forEach(function(element) {
+			observer.observe(element);
+		});
 	}
 
 	/**

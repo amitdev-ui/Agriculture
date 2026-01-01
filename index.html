@@ -21,8 +21,8 @@
 		================================================== -->
 		<link rel="stylesheet" href="style.min.css" type="text/css">
 		<link rel="stylesheet" href="animations.css" type="text/css">
-		<link rel="stylesheet" href="navbar.css" type="text/css">
 		<link rel="stylesheet" href="font-fixes.css" type="text/css">
+		<link rel="stylesheet" href="responsive.css" type="text/css">
 
 		<!-- Load google font
 		================================================== -->
@@ -51,6 +51,433 @@
 		
 		<!-- Custom Design Enhancements -->
 		<style>
+			/* ============================================
+			   MAIN NAVBAR STYLES
+			   ============================================ */
+			.main-navbar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				width: 100%;
+				background-color: #fff;
+				z-index: 10000;
+				padding: 20px 0;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+			}
+			
+			/* Ensure navbar is always visible above header */
+			#start-screen {
+				position: relative;
+				z-index: 1;
+			}
+			
+			.navbar-container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 30px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			
+			/* Logo Styles */
+			.navbar-logo {
+				flex-shrink: 0;
+			}
+			
+			.navbar-logo a,
+			.navbar-logo .logo-link {
+				display: inline-block;
+				text-decoration: none;
+				line-height: 0;
+			}
+			
+			.logo-link {
+				display: flex;
+				align-items: center;
+			}
+			
+			.logo-img {
+				height: 40px;
+				width: auto;
+				display: block;
+				max-width: 200px;
+				object-fit: contain;
+				opacity: 1 !important;
+				visibility: visible !important;
+			}
+			
+			/* Ensure logo is always visible */
+			.navbar-logo {
+				display: flex;
+				align-items: center;
+			}
+			
+			.navbar-logo img {
+				opacity: 1 !important;
+				visibility: visible !important;
+				display: block !important;
+			}
+			
+			.navbar-logo a {
+				display: inline-block;
+				line-height: 0;
+			}
+			
+			/* Menu Styles */
+			.navbar-menu {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0;
+				flex: 1;
+				gap: 35px;
+				max-width: 600px;
+			}
+			
+			.navbar-menu li {
+				margin: 0;
+			}
+			
+			.nav-link {
+				font-family: 'Poppins', sans-serif;
+				font-size: 14px;
+				font-weight: 500;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				color: #282828;
+				text-decoration: none;
+				position: relative;
+				padding: 5px 0;
+				transition: color 0.3s ease;
+				display: inline-block;
+			}
+			
+			.nav-link:hover {
+				color: #4A8B71;
+			}
+			
+			.nav-link.active {
+				color: #4A8B71;
+			}
+			
+			.nav-link.active::after {
+				content: '';
+				position: absolute;
+				bottom: -2px;
+				left: 50%;
+				transform: translateX(-50%);
+				height: 2px;
+				background-color: #f1cf69;
+				width: 30px;
+			}
+			
+			/* Get in Touch Button */
+			.navbar-cta {
+				flex-shrink: 0;
+			}
+			
+			.nav-cta-btn {
+				font-family: 'Poppins', sans-serif;
+				font-size: 13px;
+				font-weight: 500;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				color: #282828;
+				text-decoration: none;
+				padding: 12px 28px;
+				border: 1px solid #f1cf69;
+				border-radius: 4px;
+				background-color: #fff;
+				display: inline-block;
+				transition: all 0.3s ease;
+			}
+			
+			.nav-cta-btn:hover {
+				background-color: #f1cf69;
+				color: #282828;
+				transform: translateY(-2px);
+				box-shadow: 0 4px 8px rgba(241, 207, 105, 0.3);
+			}
+			
+			/* Mobile Menu Toggle Button */
+			.mobile-menu-toggle {
+				display: none;
+				flex-direction: column;
+				justify-content: space-around;
+				width: 30px;
+				height: 30px;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				padding: 0;
+				z-index: 10001;
+			}
+			
+			.mobile-menu-toggle span {
+				width: 100%;
+				height: 2px;
+				background-color: #282828;
+				border-radius: 2px;
+				transition: all 0.3s ease;
+			}
+			
+			.mobile-menu-toggle.active span:nth-child(1) {
+				transform: rotate(45deg) translate(8px, 8px);
+			}
+			
+			.mobile-menu-toggle.active span:nth-child(2) {
+				opacity: 0;
+			}
+			
+			.mobile-menu-toggle.active span:nth-child(3) {
+				transform: rotate(-45deg) translate(8px, -8px);
+			}
+			
+			/* Mobile Menu Overlay */
+			.mobile-menu-overlay {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100vh;
+				background-color: rgba(0, 0, 0, 0.85);
+				z-index: 10000;
+				opacity: 0;
+				transition: opacity 0.4s ease;
+				backdrop-filter: blur(2px);
+			}
+			
+			.mobile-menu-overlay.active {
+				opacity: 1;
+			}
+			
+			.mobile-menu {
+				position: fixed;
+				top: 0;
+				right: -100%;
+				width: 75%;
+				max-width: 350px;
+				height: 100vh;
+				background-color: #000;
+				z-index: 10001;
+				padding: 100px 40px 40px;
+				transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				overflow-y: auto;
+				box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+			}
+			
+			.mobile-menu.active {
+				right: 0;
+			}
+			
+			/* Mobile Menu Close Button */
+			.mobile-menu-close {
+				position: absolute;
+				top: 30px;
+				right: 30px;
+				width: 30px;
+				height: 30px;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				padding: 0;
+				z-index: 10002;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.mobile-menu-close::before,
+			.mobile-menu-close::after {
+				content: '';
+				position: absolute;
+				width: 20px;
+				height: 2px;
+				background-color: #fff;
+				transition: all 0.3s ease;
+			}
+			
+			.mobile-menu-close::before {
+				transform: rotate(45deg);
+			}
+			
+			.mobile-menu-close::after {
+				transform: rotate(-45deg);
+			}
+			
+			.mobile-menu-close:hover::before,
+			.mobile-menu-close:hover::after {
+				background-color: #f1cf69;
+			}
+			
+			.mobile-menu ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.mobile-menu li {
+				margin-bottom: 25px;
+				opacity: 0;
+				transform: translateX(20px);
+				transition: opacity 0.3s ease, transform 0.3s ease;
+			}
+			
+			.mobile-menu.active li {
+				opacity: 1;
+				transform: translateX(0);
+			}
+			
+			.mobile-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+			.mobile-menu.active li:nth-child(2) { transition-delay: 0.15s; }
+			.mobile-menu.active li:nth-child(3) { transition-delay: 0.2s; }
+			.mobile-menu.active li:nth-child(4) { transition-delay: 0.25s; }
+			.mobile-menu.active li:nth-child(5) { transition-delay: 0.3s; }
+			.mobile-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+			
+			.mobile-menu .nav-link {
+				font-family: 'Poppins', sans-serif;
+				font-size: 22px;
+				font-weight: 500;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				color: #fff;
+				text-decoration: none;
+				display: block;
+				padding: 12px 0;
+				transition: color 0.3s ease, transform 0.2s ease;
+				position: relative;
+			}
+			
+			.mobile-menu .nav-link:hover {
+				color: #4A8B71;
+				transform: translateX(5px);
+			}
+			
+			.mobile-menu .nav-link.active {
+				color: #4A8B71;
+			}
+			
+			.mobile-menu .nav-link.active::after {
+				content: '';
+				position: absolute;
+				bottom: 8px;
+				left: 0;
+				width: 40px;
+				height: 2px;
+				background-color: #f1cf69;
+			}
+			
+			.mobile-menu .nav-cta-btn {
+				margin-top: 30px;
+				width: 100%;
+				text-align: center;
+				border: 2px solid #f1cf69;
+				border-radius: 6px;
+				background-color: transparent;
+				color: #f1cf69;
+				padding: 14px 20px;
+				font-size: 14px;
+				font-weight: 600;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				transition: all 0.3s ease;
+			}
+			
+			.mobile-menu .nav-cta-btn:hover {
+				background-color: #f1cf69;
+				color: #000;
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(241, 207, 105, 0.4);
+			}
+			
+			/* Responsive Styles */
+			@media (max-width: 991px) {
+				.navbar-container {
+					padding: 0 20px;
+				}
+				
+				.navbar-menu {
+					gap: 25px;
+				}
+				
+				.nav-link {
+					font-size: 12px;
+				}
+				
+				.nav-cta-btn {
+					font-size: 11px;
+					padding: 10px 20px;
+				}
+			}
+			
+			@media (max-width: 768px) {
+				.main-navbar {
+					padding: 15px 0;
+				}
+				
+				.navbar-container {
+					padding: 0 20px;
+				}
+				
+				.navbar-menu,
+				.navbar-cta {
+					display: none;
+				}
+				
+				.mobile-menu-toggle {
+					display: flex;
+				}
+				
+				.mobile-menu-overlay {
+					display: block;
+				}
+				
+				.mobile-menu {
+					display: block;
+				}
+				
+				.logo-img {
+					height: 35px;
+				}
+			}
+			
+			@media (max-width: 576px) {
+				.mobile-menu {
+					width: 85%;
+					padding: 60px 30px;
+				}
+				
+				.mobile-menu .nav-link {
+					font-size: 20px;
+				}
+			}
+			
+			/* Add padding to body to account for fixed navbar */
+			body.page-home {
+				padding-top: 80px;
+			}
+			
+			#start-screen {
+				margin-top: 0;
+			}
+			
+			@media (max-width: 768px) {
+				body.page-home {
+					padding-top: 70px;
+				}
+			}
+			
+			/* Prevent body scroll when mobile menu is open */
+			body.menu-open {
+				overflow: hidden;
+			}
+			
 			/* Developer Credit Styling */
 			.footer__copy strong {
 				font-weight: 600;
@@ -113,17 +540,72 @@
 			/* Timeline and feature styling */
 			.timeline__item {
 				transition: all 0.3s ease;
+				opacity: 1 !important;
+				visibility: visible !important;
+				display: block !important;
 			}
 			.timeline__item:hover {
 				transform: translateY(-3px);
 			}
 			
-			/* Enhanced Fresh Ideas Slider Design */
+			/* Ensure timeline items are visible */
+			.timeline .timeline__item,
+			.timeline .timeline__item.stagger-item {
+				opacity: 1 !important;
+				visibility: visible !important;
+				transform: none !important;
+			}
+			
+			.timeline__year {
+				font-size: 24px;
+				font-weight: 700;
+				color: #4A8B71;
+				margin-bottom: 10px;
+			}
+			
+			.timeline__title {
+				font-size: 18px;
+				font-weight: 600;
+				color: #282828;
+				margin-bottom: 12px;
+			}
+			
+			.timeline__item p {
+				color: #666;
+				line-height: 1.6;
+			}
+			
+			/* Enhanced Fresh Ideas Slider Design - Improved Positioning */
 			.start-screen__content-third {
 				background: linear-gradient(135deg, rgba(74, 139, 113, 0.85) 0%, rgba(241, 207, 105, 0.75) 100%);
 				padding: 80px 20px !important;
 				position: relative;
 				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.start-screen__content-third .v-align {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.start-screen__content-third .v-middle {
+				width: 100%;
+				max-width: 1200px;
+			}
+			
+			.start-screen__content-third .container {
+				width: 100%;
+			}
+			
+			.start-screen__content-third .row {
+				justify-content: center;
+				text-align: center;
 			}
 			
 			.start-screen__content-third::before {
@@ -150,7 +632,9 @@
 				letter-spacing: 8px;
 				position: relative;
 				z-index: 2;
-				margin-bottom: 20px !important;
+				margin: 0 !important;
+				padding-top: 24px;
+				line-height: 1.1;
 			}
 			
 			.start-screen__content-third .subtitle {
@@ -161,8 +645,15 @@
 				font-weight: 300;
 				position: relative;
 				z-index: 2;
-				margin-bottom: 30px;
+				margin: 0 !important;
+				padding: 12px 24px;
+				display: inline-block;
 				text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(10px);
+				border-radius: 8px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 			}
 			
 			.start-screen__content-third .description {
@@ -170,9 +661,10 @@
 				font-size: 18px;
 				line-height: 1.8;
 				max-width: 600px;
+				margin: 0 auto !important;
+				padding-top: 32px;
 				position: relative;
 				z-index: 2;
-				margin-bottom: 40px;
 				text-shadow: 0 1px 5px rgba(0,0,0,0.2);
 			}
 			
@@ -186,6 +678,7 @@
 				font-weight: 600;
 				text-transform: uppercase;
 				letter-spacing: 2px;
+				display: inline-block;
 			}
 			
 			.start-screen__content-third .custom-btn:hover {
@@ -206,19 +699,282 @@
 					padding: 120px 20px !important;
 				}
 			}
-			
 			@media (min-width: 992px) {
 				.start-screen__content-third .title {
 					font-size: 130px !important;
 					letter-spacing: 15px;
 				}
 			}
+			
+			/* ============================================
+			   RESPONSIVE STYLES - FOOTER & SECTIONS
+			   ============================================ */
+			
+			/* Footer Responsive Styles */
+			@media (max-width: 991px) {
+				#footer {
+					padding: 40px 0 !important;
+				}
+				
+				.footer__item {
+					margin-bottom: 30px;
+				}
+				
+				.footer__item:last-child {
+					margin-bottom: 0;
+				}
+				
+				.footer__title {
+					font-size: 18px;
+					margin-bottom: 15px;
+				}
+				
+				.footer__menu {
+					margin-bottom: 15px;
+				}
+				
+				.footer__menu li {
+					margin-bottom: 8px;
+				}
+				
+				.footer__form .b-table {
+					flex-direction: column;
+				}
+				
+				.footer__form .cell {
+					width: 100% !important;
+					margin-bottom: 10px;
+				}
+				
+				.footer__form .cell:last-child {
+					margin-bottom: 0;
+				}
+				
+				.footer__form .custom-btn {
+					width: 100%;
+				}
+			}
+			
+			@media (max-width: 576px) {
+				#footer {
+					padding: 30px 0 !important;
+				}
+				
+				.footer__item {
+					margin-bottom: 25px;
+					text-align: center;
+				}
+				
+				.footer__item .site-logo {
+					font-size: 20px;
+				}
+				
+				.footer__title {
+					font-size: 16px;
+					margin-bottom: 12px;
+				}
+				
+				.footer__menu {
+					text-align: center;
+				}
+				
+				.footer__form p {
+					font-size: 14px;
+					text-align: center;
+				}
+			}
+			
+			/* Section Responsive Styles */
+			@media (max-width: 991px) {
+				.section {
+					padding: 60px 0 !important;
+				}
+				
+				.section-heading {
+					margin-bottom: 40px;
+				}
+				
+				.section-heading .title {
+					font-size: 32px !important;
+				}
+				
+				.section-heading .subtitle {
+					font-size: 16px !important;
+				}
+				
+				.row {
+					margin-left: -10px;
+					margin-right: -10px;
+				}
+				
+				.row > [class*="col-"] {
+					padding-left: 10px;
+					padding-right: 10px;
+					margin-bottom: 20px;
+				}
+				
+				.item__title {
+					font-size: 24px;
+				}
+				
+				.item__subtitle {
+					font-size: 14px;
+				}
+			}
+			
+			@media (max-width: 576px) {
+				.section {
+					padding: 40px 0 !important;
+				}
+				
+				.section-heading {
+					margin-bottom: 30px;
+				}
+				
+				.section-heading .title {
+					font-size: 26px !important;
+					line-height: 1.3;
+				}
+				
+				.section-heading .subtitle {
+					font-size: 14px !important;
+				}
+				
+				.item__title {
+					font-size: 20px;
+				}
+				
+				.item__subtitle {
+					font-size: 13px;
+				}
+				
+				.custom-btn {
+					padding: 10px 20px !important;
+					font-size: 13px !important;
+				}
+				
+				.custom-btn.big {
+					padding: 12px 24px !important;
+					font-size: 14px !important;
+				}
+			}
+			
+			/* Gallery Responsive */
+			@media (max-width: 991px) {
+				.gallery__item {
+					margin-bottom: 20px;
+				}
+			}
+			
+			@media (max-width: 576px) {
+				.gallery__item {
+					margin-bottom: 15px;
+				}
+			}
+			
+			/* Form Responsive */
+			@media (max-width: 576px) {
+				.f1 .input-wrp,
+				.form-horizontal .input-wrp {
+					margin-bottom: 15px;
+				}
+				
+				.f1 .btn-wrp,
+				.form-horizontal .btn-wrp {
+					text-align: center;
+				}
+				
+				.f1 .custom-btn,
+				.form-horizontal .custom-btn {
+					width: 100%;
+				}
+			}
+			
+			/* Contact Section Responsive */
+			@media (max-width: 991px) {
+				.address {
+					margin-bottom: 30px;
+				}
+				
+				.social-btns {
+					justify-content: center;
+					margin-top: 20px;
+				}
+			}
+			
+			/* Timeline Responsive */
+			@media (max-width: 991px) {
+				.timeline__item {
+					margin-bottom: 30px;
+				}
+			}
+			
+			/* Feature Items Responsive */
+			@media (max-width: 991px) {
+				.feature__item {
+					margin-bottom: 30px;
+				}
+			}
+			
+			@media (max-width: 576px) {
+				.feature__item {
+					margin-bottom: 25px;
+					text-align: center;
+				}
+			}
 		</style>
 	</head>
 	<body class="page page-home">
-		<!-- Reusable Navbar - Loaded via navbar.js -->
-		<div id="navbar-placeholder"></div>
-
+		<!-- start navbar -->
+		<nav class="main-navbar">
+			<div class="navbar-container">
+				<!-- Logo on left -->
+				<div class="navbar-logo">
+					<a href="index.html" class="logo-link">
+						<img src="img/logo_1.png" alt="Agricom Logo" class="logo-img" onerror="handleLogoError(this);">
+					</a>
+				</div>
+				
+				<!-- Menu items in center -->
+				<ul class="navbar-menu">
+					<li><a href="index.html" class="nav-link active">HOME</a></li>
+					<li><a href="#" class="nav-link">PAGES</a></li>
+					<li><a href="gallery_1.html" class="nav-link">GALLERY</a></li>
+					<li><a href="blog.html" class="nav-link">BLOG</a></li>
+					<li><a href="contacts.html" class="nav-link">CONTACTS</a></li>
+				</ul>
+				
+				<!-- Get in Touch button on right -->
+				<div class="navbar-cta">
+					<a href="contacts.html" class="nav-cta-btn">GET IN TOUCH</a>
+				</div>
+				
+				<!-- Mobile Menu Toggle -->
+				<button class="mobile-menu-toggle" aria-label="Toggle menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+			
+			<!-- Mobile Menu Overlay -->
+			<div class="mobile-menu-overlay"></div>
+			
+			<!-- Mobile Menu -->
+			<div class="mobile-menu">
+				<button class="mobile-menu-close" aria-label="Close menu"></button>
+				<ul>
+					<li><a href="index.html" class="nav-link active">Home</a></li>
+					<li><a href="#" class="nav-link">Pages</a></li>
+					<li><a href="gallery_1.html" class="nav-link">Gallery</a></li>
+					<li><a href="blog.html" class="nav-link">Blog</a></li>
+					<li><a href="contacts.html" class="nav-link">Contacts</a></li>
+					<li><a href="contacts.html" class="nav-cta-btn">Get In Touch</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- end navbar -->
+		
 		<!-- start header -->
 		<header id="start-screen" class="start-screen--style-1">
 			<div id="vegas-slider" data-dots="true">
@@ -277,9 +1033,8 @@
 					<div class="v-align">
 						<div class="v-middle">
 							<div class="container">
-								<div class="row">
-									<div class="col-12 col-md-10 col-lg-8">
-										<p class="subtitle">Innovation</p>
+								<div class="row justify-content-center text-center">
+									<div class="col-12 col-md-10 col-lg-9">
 										<p class="title">Fresh Ideas</p>
 										<p class="description">
 											Transforming agriculture with innovative solutions and cutting-edge technology. We bring fresh perspectives to sustainable farming practices.
@@ -597,9 +1352,9 @@
 									autoplay: true,
 									timer: false,
 									preloadImage: true,
-									transition: [ 'fade', 'zoomOut', 'blur', 'swirlLeft', 'swirlRight' ],
-									transitionDuration: 4000,
-									delay: 5000,
+									transition: 'fade',
+									transitionDuration: 1000,
+									delay: 6000,
 									slides: slides,
 									overlay: false,
 									init: function (globalSettings) {
@@ -755,39 +1510,6 @@
 			</section>
 			<!-- end section -->
 
-			<!-- start section -->
-			<section class="section section--custom-2">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="col-MB-30">
-								<h2>The Largest Crop Ever</h2>
-
-								<h4>Smells racy free announcing than durable zesty smart exotic far feel. Screamin' affordable secret way absolutely.</h4>
-							</div>
-
-							<p>
-								Stimulates vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes newer recommended lifetime. 
-							</p>
-
-							<p>
-								Stimulates vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes newer recommended lifetime. Evulates vast a real proven works discount secure care. Market invigorate a awesome handcrafted bigger comes newer recommended lifetime. Odor to yummy high racy bonus soaking mouthwatering. First superior 
-							</p>
-
-							<p class="d-lg-none"><img class="img-fluid" src="img/img_7.jpg" alt="demo" /></p>
-
-							<p class="col-lg-MB-20">&nbsp;</p>
-
-							<p>
-								<a class="custom-btn primary big" href="#">Find out more</a>
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="img-place" style="background-image: url(img/img_7.jpg);"></div>
-			</section>
-			<!-- end section -->
 
 			<!-- start section -->
 			<section class="section section--background-base-light section--background-logo">
@@ -796,7 +1518,7 @@
 						<h2 class="title">The Openfield Timeline</h2>
 					</div>
 
-					<div class="timeline">
+					<div class="timeline stagger">
 						<div class="timeline__inner">
 							<div class="row">
 								<!-- start item -->
@@ -1440,7 +2162,81 @@
 
 		<script type="text/javascript" src="main.min.js"></script>
 		<script type="text/javascript" src="animations.js"></script>
-		<script type="text/javascript" src="navbar.js"></script>
+		
+		<!-- Logo Error Handler -->
+		<script type="text/javascript">
+			function handleLogoError(img) {
+				if (img.src.indexOf('logo_1.png') !== -1) {
+					img.src = 'img/logo_2.png';
+				} else if (img.src.indexOf('logo_2.png') !== -1) {
+					img.src = 'img/logo_3.png';
+				} else {
+					// If all logos fail, show text
+					var logoLink = img.parentElement;
+					logoLink.innerHTML = '<span style="font-family: \'Poppins\', sans-serif; font-size: 24px; font-weight: 700; color: #4A8B71;">AGRICOM</span>';
+				}
+			}
+		</script>
+		
+		<!-- Mobile Menu Toggle Script -->
+		<script type="text/javascript">
+			(function() {
+				var menuToggle = document.querySelector('.mobile-menu-toggle');
+				var menuClose = document.querySelector('.mobile-menu-close');
+				var mobileMenu = document.querySelector('.mobile-menu');
+				var mobileOverlay = document.querySelector('.mobile-menu-overlay');
+				var body = document.body;
+				var mobileLinks = document.querySelectorAll('.mobile-menu .nav-link, .mobile-menu .nav-cta-btn');
+				
+				function toggleMenu() {
+					menuToggle.classList.toggle('active');
+					mobileMenu.classList.toggle('active');
+					mobileOverlay.classList.toggle('active');
+					body.classList.toggle('menu-open');
+				}
+				
+				function closeMenu() {
+					menuToggle.classList.remove('active');
+					mobileMenu.classList.remove('active');
+					mobileOverlay.classList.remove('active');
+					body.classList.remove('menu-open');
+				}
+				
+				if (menuToggle) {
+					menuToggle.addEventListener('click', toggleMenu);
+				}
+				
+				if (menuClose) {
+					menuClose.addEventListener('click', closeMenu);
+				}
+				
+				if (mobileOverlay) {
+					mobileOverlay.addEventListener('click', closeMenu);
+				}
+				
+				// Close menu when clicking on mobile menu links
+				mobileLinks.forEach(function(link) {
+					link.addEventListener('click', function() {
+						setTimeout(closeMenu, 300);
+					});
+				});
+				
+				// Close menu on window resize if it's open
+				window.addEventListener('resize', function() {
+					if (window.innerWidth > 768 && body.classList.contains('menu-open')) {
+						closeMenu();
+					}
+				});
+				
+				// Close menu on ESC key
+				document.addEventListener('keydown', function(e) {
+					if (e.key === 'Escape' && body.classList.contains('menu-open')) {
+						closeMenu();
+					}
+				});
+			})();
+		</script>
+		
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
 			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
