@@ -13,6 +13,7 @@
 	display: inline-block;
 	cursor: pointer;
 	border: none;
+	margin-bottom: 0 !important;
 }
 
 /* Primary button style - White background, golden border */
@@ -28,12 +29,14 @@
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	padding: 12px 28px;
 	font-size: 13px;
+	margin-bottom: 0 !important;
 }
 
 .custom-btn.big,
 .custom-btn.big.primary {
 	padding: 14px 32px;
 	font-size: 14px;
+	margin-bottom: 0 !important;
 }
 
 /* Hover state */
@@ -74,12 +77,14 @@
 	.show-more-btn {
 		padding: 10px 24px;
 		font-size: 12px;
+		margin-bottom: 0 !important;
 	}
 	
 	.custom-btn.big,
 	.custom-btn.big.primary {
 		padding: 12px 28px;
 		font-size: 13px;
+		margin-bottom: 0 !important;
 	}
 }
 
